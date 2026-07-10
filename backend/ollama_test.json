@@ -1,0 +1,1 @@
+{"model":"qwen2.5:7b-instruct","created_at":"2026-07-10T07:38:17.1763743Z","message":{"role":"assistant","content":"Hello there!"},"done":true,"done_reason":"stop","total_duration":1021699700,"load_duration":170964400,"prompt_eval_count":36,"prompt_eval_duration":216675000,"eval_count":4,"eval_duration":627043000}

@@ -1,0 +1,162 @@
+/* ---------------------------------------------------------------------
+   Campus Genius — design tokens (source of truth)
+
+   Palette, type, radius, and shadow values are transplanted directly
+   from the Lovable prototype (see repo pdf-scholar-ai-92 / src/
+   styles.css) so the production app reads as the same product, not a
+   reskin. Two things changed from the prototype on purpose:
+
+   1. Citation yellow (--citation) is kept exactly, and the usage rule
+      from the original design system carries over unchanged: it is
+      reserved ONLY for grounded-citation moments (source-card scores,
+      cited spans inside an answer, the active sidebar accent). Never a
+      general brand wash.
+   2. A [data-theme="dark"] block is added (Lovable ships `.dark` via
+      Tailwind's class-based scheme; here it's an attribute toggle set
+      by SettingsPanel + persisted to localStorage, since this project
+      doesn't use Tailwind).
+
+   Any new component should pull values from here rather than
+   hardcoding colors or one-off rem values.
+   ------------------------------------------------------------------- */
+:root {
+  /* Base surfaces */
+  --background: oklch(0.995 0.003 90);
+  --foreground: oklch(0.22 0.03 260);
+  --surface: oklch(0.975 0.006 260);
+  --surface-elevated: oklch(1 0 0);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.03 260);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.03 260);
+
+  /* Deep navy primary */
+  --primary: oklch(0.28 0.08 260);
+  --primary-foreground: oklch(0.99 0.003 90);
+  --primary-soft: oklch(0.94 0.02 260);
+
+  --secondary: oklch(0.965 0.008 260);
+  --secondary-foreground: oklch(0.28 0.08 260);
+
+  --muted: oklch(0.965 0.008 260);
+  --muted-foreground: oklch(0.52 0.02 260);
+
+  --accent: oklch(0.94 0.02 260);
+  --accent-foreground: oklch(0.28 0.08 260);
+
+  /* Signature accent — citation yellow. Grounded-source moments only. */
+  --citation: oklch(0.82 0.14 85);
+  --citation-foreground: oklch(0.32 0.06 70);
+  --citation-soft: oklch(0.96 0.05 90);
+
+  --success: oklch(0.62 0.14 155);
+  --success-foreground: oklch(0.99 0.003 90);
+  --success-soft: oklch(0.95 0.04 155);
+
+  --destructive: oklch(0.58 0.22 25);
+  --destructive-foreground: oklch(0.99 0.003 90);
+  --destructive-soft: oklch(0.95 0.05 25);
+
+  --border: oklch(0.92 0.01 260);
+  --input: oklch(0.92 0.01 260);
+  --ring: oklch(0.28 0.08 260);
+
+  --sidebar: oklch(0.985 0.005 260);
+  --sidebar-foreground: oklch(0.22 0.03 260);
+  --sidebar-primary: oklch(0.28 0.08 260);
+  --sidebar-primary-foreground: oklch(0.99 0.003 90);
+  --sidebar-accent: oklch(0.945 0.015 260);
+  --sidebar-accent-foreground: oklch(0.28 0.08 260);
+  --sidebar-border: oklch(0.92 0.01 260);
+
+  /* Type */
+  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --text-2xs: 0.68rem;
+  --text-xs: 0.74rem;
+  --text-sm: 0.85rem;
+  --text-base: 0.92rem;
+  --text-md: 1rem;
+  --text-lg: 1.2rem;
+  --text-xl: 1.45rem;
+  --text-2xl: 2.05rem;
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.6;
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  /* Shape / elevation — matches Lovable's radius + shadow scale exactly
+     (same calc-from-base formula as its Tailwind @theme block). */
+  --radius: 0.75rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --shadow-soft: 0 1px 2px 0 oklch(0.2 0.04 260 / 0.04), 0 1px 3px 0 oklch(0.2 0.04 260 / 0.06);
+  --shadow-elevated: 0 4px 12px -2px oklch(0.2 0.04 260 / 0.06), 0 8px 24px -4px oklch(0.2 0.04 260 / 0.08);
+  --shadow-glow: 0 0 0 1px oklch(0.35 0.12 260 / 0.08), 0 8px 32px -8px oklch(0.35 0.12 260 / 0.18);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+  --background: oklch(0.16 0.02 260);
+  --foreground: oklch(0.96 0.005 260);
+  --surface: oklch(0.2 0.025 260);
+  --surface-elevated: oklch(0.23 0.03 260);
+
+  --card: oklch(0.2 0.025 260);
+  --card-foreground: oklch(0.96 0.005 260);
+  --popover: oklch(0.2 0.025 260);
+  --popover-foreground: oklch(0.96 0.005 260);
+
+  --primary: oklch(0.75 0.08 250);
+  --primary-foreground: oklch(0.18 0.03 260);
+  --primary-soft: oklch(0.28 0.05 260);
+
+  --secondary: oklch(0.24 0.03 260);
+  --secondary-foreground: oklch(0.96 0.005 260);
+
+  --muted: oklch(0.24 0.03 260);
+  --muted-foreground: oklch(0.7 0.02 260);
+
+  --accent: oklch(0.28 0.05 260);
+  --accent-foreground: oklch(0.96 0.005 260);
+
+  --citation: oklch(0.78 0.14 85);
+  --citation-foreground: oklch(0.2 0.04 70);
+  --citation-soft: oklch(0.3 0.05 80);
+
+  --success: oklch(0.7 0.14 155);
+  --success-foreground: oklch(0.16 0.02 260);
+  --success-soft: oklch(0.26 0.04 155);
+
+  --destructive: oklch(0.65 0.2 25);
+  --destructive-foreground: oklch(0.99 0.003 90);
+  --destructive-soft: oklch(0.3 0.06 25);
+
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 10%);
+  --ring: oklch(0.75 0.08 250);
+
+  --sidebar: oklch(0.18 0.025 260);
+  --sidebar-foreground: oklch(0.96 0.005 260);
+  --sidebar-primary: oklch(0.75 0.08 250);
+  --sidebar-primary-foreground: oklch(0.18 0.03 260);
+  --sidebar-accent: oklch(0.24 0.03 260);
+  --sidebar-accent-foreground: oklch(0.96 0.005 260);
+  --sidebar-border: oklch(1 0 0 / 8%);
+}
