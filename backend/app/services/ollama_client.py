@@ -32,7 +32,7 @@ class OllamaClient:
                         {"role": "user", "content": user_prompt},
                     ],
                     "stream": False,
-                    "options": {"num_predict": 250},
+                    "options": {"num_predict": 600},
                 },
                 timeout=self._timeout_seconds,
             )

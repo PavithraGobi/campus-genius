@@ -56,5 +56,42 @@ class ChunkStore:
             for row in response.data
         ]
 
+    def get_ordered_chunks(
+        self, document_id: str, limit: int | None = None
+    ) -> list[RetrievedChunk]:
+        """Return a document's chunks in document order (by chunk_index).
+
+        Unlike `search_similar`, this isn't a similarity search — there's no
+        query to search against. Viva question generation needs broad
+        coverage across a document rather than chunks relevant to a specific
+        question, so it pulls chunks in reading order instead.
+
+        `similarity_score` is set to 1.0 on the returned chunks since it's
+        not a meaningful value here; it's kept only so this can reuse the
+        existing RetrievedChunk shape.
+        """
+        client = get_supabase_client()
+        query = (
+            client.table(TABLE)
+            .select("id, document_id, chunk_index, chunk_text, page_number")
+            .eq("document_id", document_id)
+            .order("chunk_index")
+        )
+        if limit is not None:
+            query = query.limit(limit)
+        response = query.execute()
+
+        return [
+            RetrievedChunk(
+                chunk_id=row["id"],
+                document_id=row["document_id"],
+                chunk_index=row["chunk_index"],
+                chunk_text=row["chunk_text"],
+                page_number=row["page_number"],
+                similarity_score=1.0,
+            )
+            for row in response.data
+        ]
+
 
 chunk_store = ChunkStore()

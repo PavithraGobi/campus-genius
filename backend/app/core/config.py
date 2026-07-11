@@ -43,12 +43,16 @@ class Settings(BaseSettings):
     retrieval_default_top_k: int = 5
 
     # Answer generation
-    ollama_timeout_seconds: int = 120
+    ollama_timeout_seconds: int = 300
     # Below this similarity score, context is treated as insufficient and
     # the LLM is not called at all — a deterministic guard against
     # hallucinating from weak/irrelevant matches. Heuristic default; revisit
     # during Phase 9 evaluation once real query/document pairs exist.
     min_similarity_threshold: float = 0.35
+
+    # Viva question generation
+    viva_default_num_questions: int = 6
+    viva_default_chunk_limit: int = 8
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
