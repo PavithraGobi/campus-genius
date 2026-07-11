@@ -78,6 +78,36 @@ Use the evaluation file to test:
 - Citation accuracy
 - Viva question quality
 
+## What's Been Tested
+
+The following has been verified with real test runs (see `EVALUATION.md`
+for the full methodology):
+
+- PDF upload, chunking, and embedding — verified working
+- Retrieval accuracy — consistently strong across Tamil, English, and
+  Tanglish queries, including correctly ranking true-negative (unrelated)
+  queries lowest
+- Grounded answer generation — verified correct and citation-backed for
+  single-fact queries in Tamil, English, and Tanglish
+- Out-of-scope fallback (`insufficient_context`) — verified correctly
+  triggers and returns no fabricated sources
+- Viva question generation — verified working across multiple uploaded
+  documents, with correct page citations
+- Frontend (Upload, Ask, Search, Viva, Library tabs) — verified working
+  in-browser, including a fixed chat-history-loss bug on tab switching
+
+## Known Limitations
+
+- **Compound question handling**: questions that combine multiple
+  sub-topics, where the source document names but does not define one of
+  them, can produce an incorrect or over-cautious answer from the local
+  LLM. See [`TEST3_LIMITATION.md`](./TEST3_LIMITATION.md) for full
+  details, root cause analysis, and a recommended fix.
+- **Local model latency**: generation runs on a CPU-only local model
+  (~5-6 tokens/sec), so answers to longer or compound questions can take
+  20-40+ seconds. Mitigated with output-length capping and keeping the
+  model warm between requests, but not eliminated.
+
 ## Future Work
 - Authentication.
 - Chat history.
