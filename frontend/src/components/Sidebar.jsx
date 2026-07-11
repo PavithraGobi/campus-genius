@@ -1,11 +1,13 @@
-import { Upload, MessagesSquare, Search, Library, Settings, GraduationCap } from "lucide-react";
+import { Upload, MessagesSquare, Search, Library, Settings, GraduationCap, HelpCircle } from "lucide-react";
 
 // Order matches the real product flow: get a document in, ask about it,
-// inspect retrieval, manage the shelf, tune preferences.
+// inspect retrieval, generate viva questions from it, manage the shelf,
+// tune preferences.
 const TABS = [
   { id: "upload", label: "Upload", icon: Upload },
   { id: "ask", label: "Ask AI", icon: MessagesSquare },
   { id: "search", label: "Search", icon: Search },
+  { id: "viva", label: "Viva", icon: HelpCircle },
   { id: "library", label: "Library", icon: Library },
   { id: "settings", label: "Settings", icon: Settings },
 ];
@@ -16,7 +18,7 @@ export default function Sidebar({ active, onChange, readyCount = 0, totalCount =
   // and Search show only what's actually queryable right now.
   const countFor = (id) => {
     if (id === "library") return totalCount;
-    if (id === "ask" || id === "search") return readyCount;
+    if (id === "ask" || id === "search" || id === "viva") return readyCount;
     return null;
   };
 

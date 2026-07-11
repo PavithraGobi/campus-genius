@@ -5,6 +5,7 @@ import UploadPanel from "./components/UploadPanel.jsx";
 import LibraryPanel from "./components/LibraryPanel.jsx";
 import AskPanel from "./components/AskPanel.jsx";
 import SearchPanel from "./components/SearchPanel.jsx";
+import VivaPanel from "./components/VivaPanel.jsx";
 import SettingsPanel from "./components/SettingsPanel.jsx";
 import { getHealth } from "./api/client.js";
 import { useDocumentLibrary } from "./hooks/useDocumentLibrary.js";
@@ -69,8 +70,11 @@ export default function App() {
             onOpenLibrary={() => setTab("library")}
           />
         )}
-        {tab === "ask" && <AskPanel documents={documents} presetDocumentId={askDocumentId} />}
+        <div style={{ display: tab === "ask" ? "block" : "none" }}>
+          <AskPanel documents={documents} presetDocumentId={askDocumentId} />
+        </div>
         {tab === "search" && <SearchPanel documents={documents} />}
+        {tab === "viva" && <VivaPanel documents={documents} />}
         {tab === "library" && (
           <LibraryPanel documents={documents} onRefresh={refresh} onAsk={goAskWithDocument} />
         )}

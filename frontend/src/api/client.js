@@ -80,4 +80,17 @@ export function askQuestion({ query, topK, documentId }) {
   });
 }
 
+/** POST /viva/generate -> VivaResponse */
+export function generateViva({ documentId, numQuestions, chunkLimit }) {
+  return request("/viva/generate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      document_id: documentId,
+      num_questions: numQuestions,
+      chunk_limit: chunkLimit,
+    }),
+  });
+}
+
 export { ApiError };
