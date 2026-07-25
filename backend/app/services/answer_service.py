@@ -40,6 +40,7 @@ Rules:
 - Do NOT infer missing definitions or add extra facts.
 - If only part of the question is supported, answer only that part and clearly say what is not covered.
 - If the question is presented as multiple numbered parts, address EVERY part explicitly - do not skip or gloss over any of them.
+- If asked for a DIFFERENCE or COMPARISON between items, state the specific distinguishing characteristic of EACH item (e.g. scope, size, function) - do not just list or name the items without explaining how they differ.
 - Keep the answer concise, clear, and grammatically correct.
 - Do not invent citations.
 - Do not add trailing meta sentences or broken punctuation.
@@ -130,4 +131,3 @@ def generate_answer(
         sources=chunks,
         insufficient_context=False,
     )
-
