@@ -44,6 +44,7 @@ Rules:
 - Keep the answer concise, clear, and grammatically correct.
 - Do not invent citations.
 - Do not add trailing meta sentences or broken punctuation.
+- Respond in the SAME language(s) as the question. If the question is in Tamil, answer in Tamil. If it mixes Tamil and English (Tanglish), answer in that same mix. Never respond in any other language (e.g. Chinese) under any circumstance.
 Citation rules:
 - When citing, use exactly this format: (Page X)
 - Do not write a sentence describing the citation.

@@ -26,6 +26,24 @@ _COMPOUND_SIGNALS = [
     " and why ",
 ]
 
+# Tanglish (romanized Tamil mixed with English) phrasing doesn't use "and" or
+# மற்றும் the same way - a second sub-question is often just comma-separated,
+# e.g. "MAN pathi sollunga, adhu epdi LAN-la irundhu vithyasama irukku, TCP
+# UDP வித்தியாசம் என்ன?". These are common clause-final question words/phrases
+# in that style. Deliberately a short, specific list rather than a bare
+# comma-split, to avoid false-triggering on single questions that merely
+# contain a comma (e.g. a list: "TCP, UDP, and IP").
+_TANGLISH_QUESTION_WORDS = [
+    "enna",
+    "என்ன",
+    "irukku",
+    "eppadi",
+    "epdi",
+    "sollunga",
+    "sollu",
+    "pannunga",
+]
+
 
 def _looks_compound(query: str) -> bool:
     if query.count("?") > 1:
@@ -36,7 +54,21 @@ def _looks_compound(query: str) -> bool:
     # Tamil "and" (மற்றும்) combined with a comma is a reasonably reliable
     # compound signal in this document domain - e.g. "X ஆகியவற்றுக்கு
     # இடையேயான வேறுபாடு என்ன, மற்றும் Y-ல் எந்த protocols பயன்படுத்தப்படுகின்றன?"
-    return "மற்றும்" in query and query.count(",") >= 1
+    if "மற்றும்" in query and query.count(",") >= 1:
+        return True
+    # Tanglish compound: comma-separated clauses where at least two segments
+    # each carry their own question word - a rough proxy for "two separate
+    # asks" without requiring "and" or மற்றும் to be present at all.
+    if "," in query:
+        segments = [s for s in query.split(",") if s.strip()]
+        hits = sum(
+            1
+            for seg in segments
+            if any(w in seg.lower() for w in _TANGLISH_QUESTION_WORDS)
+        )
+        if hits >= 2:
+            return True
+    return False
 
 
 SYSTEM_PROMPT = """You split compound academic questions into standalone sub-questions.
