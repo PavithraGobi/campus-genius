@@ -127,3 +127,17 @@ Store:
 - manual scores,
 - failure notes,
 - final summary.
+## Code Verification
+
+The claims in this document were cross-checked directly against the codebase (August 2026):
+
+| Claim | Verified Against |
+|---|---|
+| 600 token limit | `backend/app/services/ollama_client.py` — `"num_predict": 600` |
+| Decomposition logic exists and is wired into the answer flow | `backend/app/services/query_decomposition.py`, imported and called in `answer_service.py` |
+| Tanglish heuristic added | `_TANGLISH_QUESTION_WORDS` list in `query_decomposition.py`, used by `_looks_compound()` |
+| Language-matching system prompt rule | `answer_service.py` — explicit "Respond in the SAME language(s)..." instruction, including a rule against responding in Chinese |
+| Word-count-based chunking (root cause of the TCP/UDP attribution bug) | `chunking.py` — `_chunk_words()` splits by `chunk_size_words` (default 200) with overlap, confirming the fixed-size, non-sentence-aware chunking design |
+| LLM temperature not explicitly set to 0 | Confirmed by absence — no `temperature=` parameter anywhere in `app/services/`, so Ollama's default (non-zero) sampling temperature applies |
+
+An earlier, unused `CompoundQuestionHandler` prototype (`compound_handler.py`) was found during this verification pass, confirmed to have no references anywhere in the codebase, and removed — the live pipeline has always used `query_decomposition.py` for compound-question handling.
