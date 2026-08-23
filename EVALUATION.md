@@ -127,6 +127,7 @@ Store:
 - manual scores,
 - failure notes,
 - final summary.
+
 ## Code Verification
 
 The claims in this document were cross-checked directly against the codebase (August 2026):
