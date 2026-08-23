@@ -11,6 +11,17 @@ Campus Genius is a Tamil-English multilingual RAG assistant for college students
 - Show citations for source support.
 - Generate viva questions from document content.
 
+## Recent Improvements
+
+Verified via baseline (decomposition disabled) vs. fixed comparison on an 18-question eval set:
+
+- **Compound question handling** — questions with multiple parts (e.g. "difference between X and Y, and what is Z") are now correctly decomposed and answered, instead of returning "Insufficient context."
+- **Tanglish compound detection** — added Tanglish-specific question-word signals so romanized Tamil-English compound questions trigger decomposition correctly.
+- **Answer length** — raised max output tokens from 250 to 600 to stop mid-sentence truncation.
+- **Language matching** — added an explicit system prompt rule so answers stay in the question's language (fixes an earlier bug where Tanglish queries returned Chinese output).
+
+See [EVALUATION.md](EVALUATION.md) for the full test methodology and known limitations.
+
 ## Tech Stack
 - Frontend: React
 - Backend: FastAPI
